@@ -13,13 +13,9 @@ To get a local copy up and running follow these simple example steps.
 #### Set Up
 1. Clone repository.
 ```sh
-    git clone https://github.com/dzakirafabillah/ABSA-Sentiment-Project-PKL-KP
+    git clone https://github.com/KP-PKL-KAZEE/ABSA-Sentiment-Frontend
 ```
-2. Go to frontend directory
-```sh
-    cd frontend
-```
-3. Install Requirements 
+2. Install Requirements 
     `pip install -r requirements.txt`
 
 #### Menjalanan Frontend
