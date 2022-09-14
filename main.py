@@ -62,11 +62,12 @@ elif choose == "Specific Emiten":
             'Select emiten',
             emiten_list)
 
-        # aspect = st.text_input("Enter Aspect Here")
         submit_button = st.form_submit_button(label='Analyze')
-        
+
+        str_aspect = ' '.join(aspect)
+
         if submit_button:
             st.info("Results")
-            predict = analyze_specific_emiten(news, aspect)
+            predict = analyze_specific_emiten(news, str_aspect)
             st.write(predict)
             st.json(predict.text)        
