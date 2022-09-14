@@ -1,19 +1,19 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import requests
+import pandas as pd
 # from ..backend.app import predict_sentiment_all_emiten
 
-def process_one(news : str):
-
+def analyze_all_emiten(news : str):
     r = requests.post(f"http://127.0.0.1:8000/predict_sentiment_all_emiten/?news={news}")
-    
     return r
 
-def process_two(news : str, aspect : str):
-
+def analyze_specific_emiten(news : str, aspect : str):
     t = requests.post(f"http://127.0.0.1:8000/predict_sentiment_specific_emiten/?news={news}&aspect={aspect}")
-    
     return t
+
+def get_data_emiten():
+  return pd.read_csv("./data/daftar_emiten.csv")
 
 # UI Layout
 
@@ -43,7 +43,7 @@ if choose == "All Emiten":
         
         if submit_button:
             st.info("Results")
-            predict = process_one(news)
+            predict = analyze_all_emiten(news)
             st.write(predict)
             st.json(predict.text)
 
@@ -56,12 +56,17 @@ elif choose == "Specific Emiten":
     
     st.caption("Predict Sentiment Specific Emiten")
     with st.form(key='nlpForm'):
+        emiten_list = get_data_emiten().KodeEmiten
         news = st.text_area("Enter Article Here", height=200)
-        aspect = st.text_input("Enter Aspect Here")
+        aspect = st.multiselect(
+            'Select emiten',
+            emiten_list)
+
+        # aspect = st.text_input("Enter Aspect Here")
         submit_button = st.form_submit_button(label='Analyze')
         
         if submit_button:
             st.info("Results")
-            predict = process_two(news, aspect)
+            predict = analyze_specific_emiten(news, aspect)
             st.write(predict)
             st.json(predict.text)        
